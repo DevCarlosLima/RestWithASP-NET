@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestWithASPNET.Services.Implementations
+namespace RestWithASPNET.Repository.Implementations
 {
-    public class PersonService : IPersonService
+    public class PersonRepository : IPersonRepository
     {
         private MySQLContext _context;
 
-        public PersonService(MySQLContext context)
+        public PersonRepository(MySQLContext context)
         {
             _context = context;
         }
@@ -56,25 +56,18 @@ namespace RestWithASPNET.Services.Implementations
 
         public Person FindById(long id)
         {
-            return new Person
-            {
-                Id = id,
-                FirstName = "Carlos",
-                LastName = "Lima",
-                Address = "Guarulhos - SP",
-                Gender = "Male"
-            };
+            return _context.Persons.FirstOrDefault(p => p.Id.Equals(id));
         }
 
         public Person Update(Person person)
         {
-            if (!Exist(person.Id)) return new Person();
+            if (!Exists(person.Id)) return null;
 
             var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(person.Id));
 
             try
             {
-                _context.Entry(person).CurrentValues.SetValues(person);
+                _context.Entry(result).CurrentValues.SetValues(person);
                 _context.SaveChanges();
             }
             catch (Exception)
@@ -86,9 +79,10 @@ namespace RestWithASPNET.Services.Implementations
             return person;
         }
 
-        private bool Exist(long? id)
+        public bool Exists(long? id)
         {
-            return _context.Persons.Any(p => p.Id.Equals(id));
+            var result = _context.Persons.Any(p => p.Id.Equals(id));
+            return result;
         }
     }
 }
