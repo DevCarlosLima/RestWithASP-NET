@@ -1,11 +1,9 @@
 ﻿USE REST_WITH_ASP_NET;
 
-CREATE TABLE IF NOT EXISTS `books` (
-	`Id` VARCHAR(127) NOT NULL,
-	`Author` LONGTEXT,
-	`LaunchDate` DATETIME(6) NOT NULL,
-	`Price` DECIMAL(65,2) NOT NULL,
-	`Title` LONGTEXT
-)
-ENGINE=InnoDB DEFAULT CHARSET=latin1
-;
+CREATE TABLE `books` (
+  `id` INT(10) AUTO_INCREMENT PRIMARY KEY,
+  `Author` longtext,
+  `LaunchDate` datetime(6) NOT NULL,
+  `Price` decimal(65,2) NOT NULL,
+  `Title` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
