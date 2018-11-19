@@ -8,12 +8,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using RestWithASPNET.Business;
 using RestWithASPNET.Business.Implementations;
+using RestWithASPNET.Hypermedia;
 using RestWithASPNET.Models.Context;
 using RestWithASPNET.Repository;
 using RestWithASPNET.Repository.Generic;
 using RestWithASPNET.Repository.Implementations;
 using System;
 using System.Collections.Generic;
+using Tapioca.HATEOAS;
 
 namespace RestWithASPNET
 {
@@ -69,6 +71,11 @@ namespace RestWithASPNET
             .AddXmlSerializerFormatters()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnticher());
+
+            services.AddSingleton(filterOptions);
+
             services.AddApiVersioning();
 
             //Injeção de dependencias
@@ -93,7 +100,12 @@ namespace RestWithASPNET
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id}"
+                );
+            });
         }
     }
 }
