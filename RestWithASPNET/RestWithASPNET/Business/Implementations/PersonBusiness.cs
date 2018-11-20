@@ -8,10 +8,10 @@ namespace RestWithASPNET.Business.Implementations
 {
     public class PersonBusiness : IPersonBusiness
     {
-        private IGenericRepository<Person> _repository;
+        private IPersonRepository _repository;
         private readonly PersonConverter _converter;
 
-        public PersonBusiness(IGenericRepository<Person> repository)
+        public PersonBusiness(IPersonRepository repository)
         {
             _repository = repository;
             _converter = new PersonConverter();
@@ -44,6 +44,11 @@ namespace RestWithASPNET.Business.Implementations
             var person = _repository.Update(_converter.Parse(PersonVO));
 
             return _converter.Parse(person);
+        }
+
+        public List<PersonVO> FindByName(string firstName, string lastName)
+        {
+            return _converter.ParseList(_repository.FindByName(firstName, lastName));
         }
     }
 }

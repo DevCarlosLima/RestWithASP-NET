@@ -131,6 +131,7 @@ namespace RestWithASPNET
             services.AddScoped<IBookBusiness, BookBusiness>();
             services.AddScoped<ILoginBusiness, LoginBusiness>();
             services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             //modo de adição para classes genericas
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

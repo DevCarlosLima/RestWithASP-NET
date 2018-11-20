@@ -33,6 +33,19 @@ namespace RestWithASPNET.Controllers
             return Ok(_personBusiness.FindAll());
         }
 
+        // GET api/values
+        [HttpGet("find-by-name")]
+        [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [Authorize("Bearer")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult GetByName([FromQuery] string firstName, [FromQuery] string lastname)
+        {
+            return Ok(_personBusiness.FindByName(firstName, lastname));
+        }
+
         // GET api/values/5
         [HttpGet("{id}")]
         [ProducesResponseType((200), Type = typeof(PersonVO))]
