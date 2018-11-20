@@ -8,7 +8,7 @@ namespace RestWithASPNET.Repository.Implementations
     {
         private MySQLContext _context;
 
-        public UserRepository(MySQLContext context)
+        public LoginRepository(MySQLContext context)
         {
             _context = context;
         }

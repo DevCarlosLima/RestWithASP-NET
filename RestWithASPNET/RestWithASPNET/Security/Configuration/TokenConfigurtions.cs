@@ -1,8 +1,8 @@
 ﻿namespace RestWithASPNET.Security.Configuration
 {
-    public class TokenConfigurtions
+    public class TokenConfiguration
     {
-        public string Audiense { get; set; }
+        public string Audience { get; set; }
         public string Issuer { get; set; }
         public int Seconds { get; set; }
     }

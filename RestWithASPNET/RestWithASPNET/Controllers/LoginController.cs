@@ -24,10 +24,10 @@ namespace RestWithASPNET.Controllers
         // POST api/values
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Post([FromBody] User user)
+        public object Post([FromBody] UserVO user)
         {
             if (user == null) return BadRequest();
-            return new ObjectResult(_loginBusiness.FindByLogin(user));
+            return _loginBusiness.FindByLogin(user);
         }
     }
 }

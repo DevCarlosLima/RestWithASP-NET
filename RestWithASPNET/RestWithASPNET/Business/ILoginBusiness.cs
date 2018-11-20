@@ -1,9 +1,9 @@
-﻿using RestWithASPNET.Models;
+﻿using RestWithASPNET.Data.VO;
 
 namespace RestWithASPNET.Business
 {
     public interface ILoginBusiness
     {
-        object FindByLogin(User login);
+        object FindByLogin(UserVO login);
     }
 }
