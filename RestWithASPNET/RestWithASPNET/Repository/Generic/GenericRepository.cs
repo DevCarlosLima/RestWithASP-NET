@@ -87,5 +87,36 @@ namespace RestWithASPNET.Repository.Generic
 
             return item;
         }
+
+        public List<T> FindWithPagedSearch(string query)
+        {
+            return dataSet.FromSql<T>(query).ToList();
+        }
+
+        public int GetCount(string query)
+        {
+            #region sugestão
+            // https://stackoverflow.com/questions/40557003/entity-framework-core-count-does-not-have-optimal-performance
+            /*
+            var result = "";
+            using (var connection = _context.Database.GetDbConnection())
+            {
+                connection.Open();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    result = command.ExecuteScalar().ToString();
+                }
+            }
+
+            return Int32.Parse(result);
+            */
+            #endregion
+
+            var count = dataSet.FromSql<T>(query).Count();
+            return count;
+        }
+
     }
 }
